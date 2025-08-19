@@ -1,0 +1,17 @@
+results.txt
+.env
+.idea
+__pycache__
+.DS_Store
+node_modules
+website/
+tools/my_tool/data/raw_data
+
+
+venv/
+*.h5
+*.json
+*.onnx
+*.csv
+*.html
+*.pkl
