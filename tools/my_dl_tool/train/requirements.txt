@@ -1,8 +1,0 @@
-numpy
-scikit-learn
-tensorflow
-matplotlib
-seaborn
-tf2onnx
-onnx
-tensorflow==2.15.0

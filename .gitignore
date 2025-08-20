@@ -6,7 +6,7 @@ __pycache__
 node_modules
 website/
 tools/my_tool/data/raw_data
-
+tools/my_dl_tool_old
 
 venv/
 *.h5

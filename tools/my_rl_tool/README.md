@@ -1,29 +1,49 @@
-# Random Test Selector
-This is a sample implementation of a random test selector for the SDC Tool Competition.
+# My Test Selector
 
-## Use
+This project implements a **reinforcement learning (RL) test selector** for self-driving car (SDC) systems.  
+It applies a **Deep Q-Network (DQN)** to select tests that maximize **fault detection** while maintaining **diversity** in road geometry.  
+The tool runs as a **gRPC service** inside a Docker container.
+
+---
+
+## How it works
+- **Feature extraction** (15 features):
+  - Distance and segment statistics (path length, average/variance)  
+  - Curvature (max, avg, std)  
+  - Turns and zigzags (sharp turns, very sharp turns, zigzag patterns)  
+  - Complexity (direction changes, sinuosity)  
+  - Spatial distribution (x/y spread, bounding box ratio)  
+- **Reward function**:
+  - `+α` reward for detecting a failure  
+  - `-β` penalty for selecting similar tests (lack of diversity)  
+  - `-γ` selection cost per test  
+- **Q-Network**:
+  - Input: `[candidate_features, mean_selected_features, min_distance, progress]`  
+  - Output: **Q-value** (expected reward of selecting this test)  
+  - Architecture: 2 hidden layers (64 units, ReLU), single Q-value output  
+- **Training (offline RL)**:
+  - Uses historical test outcomes (oracles) to simulate episodes  
+  - Stores transitions in replay buffer for experience replay  
+  - Trains Q-network with Smooth L1 loss  
+  - Soft-updates target network  
+- **Selection strategy**:
+  - Greedy Q-value selection with epsilon-greedy exploration  
+  - Enforces diversity with minimum distance threshold  
+  - Selects ~33% of candidates by budget  
+
+---
+
+## Requirements
+- Docker installed  
+- Python + PyTorch (handled inside Docker)  
+- Dependencies: `numpy`, `scikit-learn`, `grpcio`, `torch`  
+
+---
+
+## Build and Run
+
+### 1. Build Docker image and Run the container
 ```bash
-cd tools/sample_tool
-docker build -t my-selector-image .
-docker run --rm --name my-selector-container -t -p 4545:4545 my-selector-image -p 4545
+docker build -t rl-selector-image .
+docker run --rm --name rl-selector-container -t -p 4545:4545 rl-selector-image -p 4545
 ```
-## License
-```{text}
-Random Test Selection Tool
-Copyright (C) 2024  Christian Birchler
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <https://www.gnu.org/licenses/>.
-```
-[GPLv3](LICENSE)
-

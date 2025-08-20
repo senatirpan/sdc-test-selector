@@ -1,29 +1,43 @@
-# Random Test Selector
-This is a sample implementation of a random test selector for the SDC Tool Competition.
+# My Test Selector
 
-## Use
+This project implements a **test case selector** for self-driving car (SDC) systems using **road geometry analysis**, **failure probability estimation**, and **clustering for diversity**.  
+The tool runs as a **gRPC service** inside a Docker container.
+
+---
+
+## How it works
+- **Feature extraction**: From road points, multiple geometric features are computed:
+  - Total distance  
+  - Number of points  
+  - Maximum / average curvature  
+  - Curvature standard deviation  
+  - Sharp turns  
+  - Direction changes  
+  - Average segment length  
+- **Failure probability**:
+  - By default, estimated using a heuristic model based on road complexity.  
+  - If a trained model is available, it uses that for prediction.  
+- **Diversity clustering**:
+  - Uses KMeans clustering on feature space to ensure variety in selected tests.  
+- **Selection strategy**:
+  - Prioritizes high failure probability tests  
+  - Balances selections across clusters for diversity  
+  - Adds some random exploration to avoid bias  
+
+---
+
+## Requirements
+- Docker installed  
+- Python dependencies (handled inside Docker):  
+  - `numpy`, `scikit-learn`, `grpcio`, etc.  
+
+---
+
+## Build and Run
+
+### 1. Build Docker image and Run the container
 ```bash
-cd tools/sample_tool
 docker build -t my-selector-image .
+
 docker run --rm --name my-selector-container -t -p 4545:4545 my-selector-image -p 4545
 ```
-## License
-```{text}
-Random Test Selection Tool
-Copyright (C) 2024  Christian Birchler
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <https://www.gnu.org/licenses/>.
-```
-[GPLv3](LICENSE)
-

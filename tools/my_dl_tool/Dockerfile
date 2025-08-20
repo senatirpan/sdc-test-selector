@@ -2,13 +2,9 @@ FROM python:3.11
 
 WORKDIR /app
 
-# Install required packages
-RUN pip install grpcio-tools
-RUN pip install onnxruntime
-RUN pip install numpy
-RUN pip install scipy
-RUN pip install scikit-learn
+COPY requirements.txt .
 
+RUN pip install -r requirements.txt
 # Copy all files including the ONNX model
 COPY . .
 

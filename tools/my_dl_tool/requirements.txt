@@ -1,0 +1,6 @@
+# Minimal requirements for inference-only container
+grpcio-tools
+onnxruntime
+numpy
+scipy
+scikit-learn
