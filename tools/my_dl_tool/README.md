@@ -12,7 +12,7 @@ The tool runs as a **gRPC server** inside a Docker container and selects test ca
   - Curvature
 - **Preprocessing**: Features are padded to fixed sequences of length 50 and scaled with a pre-trained scaler.
 - **Prediction**: The ONNX model predicts the failure probability for each test case.
-- **Selection**: The selector chooses ~25% of tests, prioritizing those with the highest failure probability.
+- **Selection**: The selector chooses tests, prioritizing those with the highest failure probability.
 
 ---
 
