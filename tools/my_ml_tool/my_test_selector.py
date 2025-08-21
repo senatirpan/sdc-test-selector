@@ -20,10 +20,10 @@ warnings.filterwarnings('ignore')
 class MyTestSelector(competition_pb2_grpc.CompetitionToolServicer):
     """
     ML-based test selector implementing multiple models:
-    1. Logistic Regression (proven 70% accuracy in research)
-    2. Random Forest (handles non-linear patterns)
-    3. SVM (good for geometric data)
-    4. Ensemble voting (combines all models)
+    1. Logistic Regression
+    2. Random Forest 
+    3. SVM 
+    4. Ensemble voting
     """
     
     def __init__(self):
@@ -37,7 +37,7 @@ class MyTestSelector(competition_pb2_grpc.CompetitionToolServicer):
     
     def extract_ml_features(self, road_points):
         """
-        Extract comprehensive features for ML models based on research findings
+        Extract comprehensive features for ML models
         """
         if len(road_points) < 3:
             return np.zeros(15)  # Return zero features for invalid roads
@@ -132,14 +132,14 @@ class MyTestSelector(competition_pb2_grpc.CompetitionToolServicer):
         """
         Initialize different ML models based on research findings
         """
-        # 1. Logistic Regression (proven in research: 70% accuracy)
+        # 1. Logistic Regression
         self.models['logistic'] = LogisticRegression(
             random_state=42,
             max_iter=1000,
             class_weight='balanced'  # Handle imbalanced data
         )
         
-        # 2. Random Forest (handles non-linear patterns well)
+        # 2. Random Forest
         self.models['random_forest'] = RandomForestClassifier(
             n_estimators=100,
             max_depth=10,
@@ -147,7 +147,7 @@ class MyTestSelector(competition_pb2_grpc.CompetitionToolServicer):
             class_weight='balanced'
         )
         
-        # 3. SVM with RBF kernel (good for geometric data)
+        # 3. SVM
         self.models['svm'] = SVC(
             kernel='rbf',
             probability=True,  # Enable probability predictions
