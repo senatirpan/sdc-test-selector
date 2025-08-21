@@ -12,9 +12,9 @@ The tool runs as a **gRPC service** inside a Docker container.
   - Sequence metrics: direction changes, direction change rate  
   - Statistical: x/y spread of road points  
 - **Models used**:
-  1. Logistic Regression – simple and interpretable, ~70% accuracy in research  
-  2. Random Forest – handles non-linear patterns  
-  3. SVM (RBF) – well-suited for geometric data  
+  1. Logistic Regression  
+  2. Random Forest  
+  3. SVM
   4. Ensemble approach – selects the best model via cross-validation  
 - **Training & evaluation**:
   - Historical test outcomes are used for training  
