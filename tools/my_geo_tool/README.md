@@ -15,10 +15,9 @@ The tool runs as a **gRPC service** inside a Docker container.
   - Direction changes  
   - Average segment length  
 - **Failure probability**:
-  - By default, estimated using a heuristic model based on road complexity.  
-  - If a trained model is available, it uses that for prediction.  
+  - Estimated using a heuristic model based on road complexity.   
 - **Diversity clustering**:
-  - Uses KMeans clustering on feature space to ensure variety in selected tests.  
+  - Uses K-Means clustering on feature space to ensure variety in selected tests.  
 - **Selection strategy**:
   - Prioritizes high failure probability tests  
   - Balances selections across clusters for diversity  
