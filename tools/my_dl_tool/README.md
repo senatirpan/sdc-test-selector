@@ -1,6 +1,7 @@
 # My Test Selector
 
-This project implements a **self-driving car (SDC) test case selector** using geometric road features and a trained **CNN + BiLSTM hybrid model**.  
+This project implements a **self-driving car (SDC) test case selector** using geometric road features and a trained **CNN + BiLSTM hybrid model**. The dataset is available at the following link: https://zenodo.org/records/14599223. It includes 10,000 test cases, where each test case consists of a list of road coordinates along with a corresponding PASS/FAIL label.
+
 The tool runs as a **gRPC server** inside a Docker container and selects test cases based on predicted failure probabilities.
 
 ---
